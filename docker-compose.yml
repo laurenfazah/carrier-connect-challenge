@@ -1,0 +1,11 @@
+services:
+  app:
+    image: my-app
+    build:
+      context: .
+    volumes:
+      - .:/rails
+    ports:
+      - "3000:3000"
+    environment:
+      RAILS_ENV: development
