@@ -1,0 +1,204 @@
+openapi: 3.1.0
+info:
+  version: "1.0"
+  title: Connect Interview
+  description: Data mapping interview for Carrier Connect team.
+  contact:
+    name: Carrier Connect Team
+    email: developers@threeflow.com
+    url: "https://threeflow.com"
+servers:
+  - url: "http://localhost:3000"
+paths:
+  "/opportunities/{opportunityId}":
+    get:
+      tags:
+        - product
+      summary: GET opportunity
+      description: Fetch the representation of an opportunity in a specific carrier's format
+      operationId: get-opportunities-opportunityId
+      parameters:
+        - name: carrier_id
+          in: query
+          description: Which carrier representation should the product be in?
+          schema:
+            type: integer
+        - name: opportunityId
+          in: path
+          description: The ID of the opportunity to be returned
+          required: true
+          schema:
+            type: string
+      responses:
+        2XX:
+          description: Success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "#/components/schemas/AcmeProduct"
+                  - $ref: "#/components/schemas/DemoCarrierProduct"
+      servers:
+        - url: "http://localhost:3000"
+tags:
+  - name: interview
+components:
+  schemas:
+    AcmeProduct:
+      type: object
+      title: AcmeProduct
+      properties:
+        id:
+          type: string
+          examples:
+            - "1"
+        transmission:
+          $ref: "#/components/schemas/Transmission"
+        coverages:
+          type: array
+          items:
+            anyOf:
+              - $ref: "#/components/schemas/AcmeDental"
+              - $ref: "#/components/schemas/AcmeVision"
+      required:
+        - id
+        - transmission
+        - coverages
+    Transmission:
+      type: object
+      title: Transmission
+      properties:
+        uuid:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+      required:
+        - uuid
+        - timestamp
+    AcmeDental:
+      type: object
+      title: AcmeDental
+      properties:
+        id:
+          type: string
+        commissions:
+          type:
+            - number
+            - "null"
+          examples:
+            - 4.5
+        xray:
+          type:
+            - string
+            - "null"
+          format: regex
+          pattern: \d+%
+          examples:
+            - 10%
+      required:
+        - id
+        - commissions
+        - xray
+    AcmeVision:
+      type: object
+      title: AcmeVision
+      properties:
+        id:
+          type: string
+        broker_commissions:
+          type: string
+          enum:
+            - OnePercent
+            - FivePercent
+            - PerEmployee
+            - nil
+        frame_benefit:
+          type:
+            - string
+            - "null"
+          pattern: \$\d+
+          examples:
+            - $200
+      required:
+        - id
+        - broker_commissions
+        - frame_benefit
+    DemoCarrierProduct:
+      type: object
+      title: DemoCarrier
+      properties:
+        id:
+          type: string
+          examples:
+            - "1"
+        transmission:
+          $ref: "#/components/schemas/Transmission"
+        coverages:
+          type: array
+          items:
+            anyOf:
+              - $ref: "#/components/schemas/DemoCarrierVision"
+              - $ref: "#/components/schemas/DemoCarrierDental"
+      required:
+        - id
+        - transmission
+        - coverages
+    DemoCarrierVision:
+      type: object
+      title: DemoCarrierVision
+      properties:
+        id:
+          type: string
+        broker_commissions:
+          type:
+            - number
+            - "null"
+          examples:
+            - 2.5
+        frame_benefit:
+          type: string
+          enum:
+            - OneHundred
+            - OneHundredAndTwentyFive
+            - OneHundredAndFifty
+            - nil
+      required:
+        - id
+        - broker_commissions
+        - frame_benefit
+    DemoCarrierDental:
+      type: object
+      title: DemoCarrierDental
+      properties:
+        id:
+          type: string
+        commissions:
+          type: object
+          properties:
+            commissions_pct:
+              type:
+                - integer
+                - "null"
+              examples:
+                - 4
+            commissions_structure:
+              type: string
+              enum:
+                - Flat
+                - Percentage
+                - nil
+          required:
+            - commissions_pct
+            - commissions_structure
+        x_ray_coinsurance:
+          type: string
+          enum:
+            - TwentyFive
+            - Fifty
+            - OneHundred
+            - nil
+      required:
+        - id
+        - commissions
+        - x_ray_coinsurance
