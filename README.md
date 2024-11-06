@@ -19,6 +19,14 @@ The mappings likely have gaps, so you'll have to make assumptions. Document thos
 ## Assumptions/Questions
 
 < Your notes here! >
+
+Initial thoughts
+- let's get familiar with the data currently rendered at the existing api endpoint
+- using that data, write some tests to assert that the endpoint returns the mapped data
+
+Starting to write tests
+- the mapping logic for expected values is a bit vague, but let's get the tests to expect what we can discern.
+
 # Data Mappings
 
 ## Acme
