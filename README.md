@@ -10,7 +10,7 @@ In this project, you'll do both things:
 
 We ask that you take no more than 2 hours on this project. The point is not for it to be 'done', but for it to show how you think about this type of work and provide a springboard for a conversation in our interview.
 
-Below you'll find data mappings for the dental and vision coverages for two insurance carriers. They think about all the data points fairly differently (as they do in the real world!). There is one endpoint defined in the app (if you run the server and hit http://localhost:3000/opportunities/2?carrier_id=1 you should see some data!). We want that app to be able to:
+Below you'll find data mappings for the dental and vision coverages for two insurance carriers. They think about all the data points fairly differently (as they do in the real world!). There is one endpoint defined in the app (if you run the server and hit http://localhost:3000/opportunities/2?carrier_id=2 you should see some data!). We want that app to be able to:
 * Represent each known product as either carrier `1` or carrier `2`.
 * In each representation, match the spec defined in `doc/api.yml`.
 
@@ -29,6 +29,13 @@ Starting to write tests
 
 Acme mapper
 - Not sure how to interpret vision commissions mapping. Making an assumption that it's similar to dental commissions
+
+[tine goes by, process can be seen in commit history]
+
+As I'm wrapping things up...
+- checked that my solution matches the API spec -- should have looked at this way sooner, before writing my tests. The enums I was confused about at the onset of this are right there. Big learning moment for me here
+
+Since I've worked on this for a few hours now and the expectations of this project specifiy it doesn't need to be 'done,' I'll choose to stop development here and submit as-is, talking about this mistake and the changes I'd make at the follow-up call with y'all!
 
 # Data Mappings
 
