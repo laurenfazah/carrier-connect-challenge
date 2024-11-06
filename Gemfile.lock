@@ -81,7 +81,7 @@ GEM
     bigdecimal (3.1.8)
     bootsnap (1.18.3)
       msgpack (~> 1.2)
-    brakeman (6.1.2)
+    brakeman (6.2.2)
       racc
     builder (3.2.4)
     concurrent-ruby (1.2.3)
@@ -171,7 +171,7 @@ GEM
       stringio
     puma (6.4.2)
       nio4r (~> 2.0)
-    racc (1.7.3)
+    racc (1.8.1)
     rack (3.0.11)
     rack-session (2.0.0)
       rack (>= 3.0.0)
