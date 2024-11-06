@@ -46,7 +46,13 @@ class DemoCarrierDataMapper
     end
   end
 
-  def map_commissions(detail)
+  def map_dental_commissions_pct(detail)
+    detail.gsub!("%", "")
+  end
+
+  def map_vision_commissions(detail)
+    return unless detail.is_a? String
+
     number = detail.gsub!("%", "")
 
     return unless number
@@ -54,14 +60,8 @@ class DemoCarrierDataMapper
     (number.to_f / 100).to_s
   end
 
-  def map_vision_commissions(detail)
-    return unless detail.is_a? String
-
-    map_commissions(detail)
-  end
-
   def map_dental_commissions(detail)
-    pct = map_commissions(detail)
+    pct = map_dental_commissions_pct(detail)
     structure = pct ? "Percent" : "Flat"
 
     {
@@ -79,7 +79,11 @@ class DemoCarrierDataMapper
   end
 
   def map_x_ray_coinsurance(detail)
-    detail.gsub!("%", "")
+    number = detail.gsub("%", "").to_f
+
+    return unless number > 0
+
+    number.ceil.to_s
   end
 
   def is_percentage?(detail)
