@@ -6,10 +6,10 @@ class OpportunitiesController < ApplicationController
   private
 
   def opportunity_data
-    data = StaticOpportunityData.find(params[:id])
+    @data = StaticOpportunityData.find(params[:id])
 
-    return acme_data(data) if carrier_id == "1"
-    return demo_carrier_data(data) if carrier_id == "2"
+    return acme_data if carrier_id == "1"
+    return demo_carrier_data if carrier_id == "2"
   end
 
   def carrier_name
@@ -23,11 +23,11 @@ class OpportunitiesController < ApplicationController
     params["carrier_id"]
   end
 
-  def acme_data(data)
-    AcmeDataMapper.new(data).map
+  def acme_data
+    AcmeDataMapper.new(@data).map
   end
 
-  def demo_carrier_data(data)
-    DemoCarrierDataMapper.new(data).map
+  def demo_carrier_data
+    DemoCarrierDataMapper.new(@data).map
   end
 end
