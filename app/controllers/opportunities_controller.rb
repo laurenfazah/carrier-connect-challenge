@@ -8,8 +8,8 @@ class OpportunitiesController < ApplicationController
   def opportunity_data
     data = StaticOpportunityData.find(params[:id])
 
-    return AcmeDataMapper.new(data).map if carrier_id == "1"
-    return data if carrier_id == "2"
+    return acme_data(data) if carrier_id == "1"
+    return demo_carrier_data(data) if carrier_id == "2"
   end
 
   def carrier_name
@@ -21,5 +21,13 @@ class OpportunitiesController < ApplicationController
 
   def carrier_id
     params["carrier_id"]
+  end
+
+  def acme_data(data)
+    AcmeDataMapper.new(data).map
+  end
+
+  def demo_carrier_data(data)
+    DemoCarrierDataMapper.new(data).map
   end
 end

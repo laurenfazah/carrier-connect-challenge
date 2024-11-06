@@ -65,16 +65,19 @@ RSpec.describe OpportunitiesController do
               id: "702",
               product_type: "Vision",
               benefits: {
-                commissions: "$1 PEPM",
-                frames: "Not Included"
+                broker_commissions: nil,
+                frame_benefit: nil
               }
             },
             {
               id: "703",
               product_type: "Dental",
               benefits: {
-                commissions: "Flat $1000",
-                x_ray_coinsurance: "30%"
+                commissions: {
+                  commissions_pct: nil,
+                  commissions_structure: "Flat"
+                },
+                x_ray_coinsurance: "30"
               }
             }
           ]
