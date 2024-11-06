@@ -27,6 +27,9 @@ Initial thoughts
 Starting to write tests
 - the mapping logic for expected values is a bit vague, but let's get the tests to expect what we can discern.
 
+Acme mapper
+- Not sure how to interpret vision commissions mapping. Making an assumption that it's similar to dental commissions
+
 # Data Mappings
 
 ## Acme

@@ -33,7 +33,7 @@ RSpec.describe AcmeDataMapper do
           id: "700",
           product_type: "Vision",
           benefits: {
-            broker_commissions: "2",
+            broker_commissions: "0.02",
             frame_benefit: "100"
           }
         },
@@ -52,6 +52,10 @@ RSpec.describe AcmeDataMapper do
   subject { described_class.new(our_data) }
 
   describe "#map" do
+    it "maps the opportunity data" do
+      expect(subject.map).to eq expected
+    end
+
     it "maps the opportunity id" do
       expect(subject.map[:id]).to eq("1")
     end
@@ -60,16 +64,16 @@ RSpec.describe AcmeDataMapper do
       vision_coverage = subject.map[:coverages].find { |c| c[:product_type] == "Vision"
  }
       expect(vision_coverage[:id]).to eq("700")
-      expect(vision_coverage[:broker_commissions]).to eq("2")
-      expect(vision_coverage[:frame_benefit]).to eq("100")
+      expect(vision_coverage[:benefits][:broker_commissions]).to eq("0.02")
+      expect(vision_coverage[:benefits][:frame_benefit]).to eq("100")
     end
 
     it "maps dental data correctly" do
       dental_coverage = subject.map[:coverages].find { |c| c[:product_type] == "Dental"
  }
       expect(dental_coverage[:id]).to eq("701")
-      expect(dental_coverage[:commissions]).to eq("0.04")
-      expect(dental_coverage[:xray]).to eq("20%")
+      expect(dental_coverage[:benefits][:commissions]).to eq("0.04")
+      expect(dental_coverage[:benefits][:xray]).to eq("20%")
     end
   end
 end
