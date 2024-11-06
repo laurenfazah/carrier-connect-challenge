@@ -21,7 +21,7 @@ class AcmeDataMapper
           id: coverage[:id],
           product_type: "Vision",
           benefits: {
-            broker_commissions: map_commissions(
+            broker_commissions: map_vision_commissions(
               coverage[:benefits][:commissions]
             ),
             frame_benefit: map_frames(
@@ -48,7 +48,21 @@ class AcmeDataMapper
 
   def map_commissions(detail)
     number = detail.gsub!("%", "")
+
+    return unless number
+
     (number.to_f / 100).to_s
+  end
+
+  def map_vision_commissions(detail)
+    return unless detail.is_a? String
+
+    detail = detail.downcase
+    pe_strings = ["pepm", "per employee", "per employee per month"]
+
+    return "PerEmployee" if pe_strings.include?(detail)
+
+    map_commissions(detail)
   end
 
   def map_frames(detail)
@@ -61,6 +75,9 @@ class AcmeDataMapper
 
   def map_x_ray_coinsurance(detail)
     number = detail.gsub!("%", "")
+
+    return unless number
+
     "#{number.to_f.ceil}%"
   end
 
